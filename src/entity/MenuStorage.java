@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuStorage {
@@ -25,7 +26,16 @@ public class MenuStorage {
         return description;
     }
 
+    public static MenuStorage createEmptyMenuStorage() {
+        return new MenuStorage(new ArrayList<Product>());
+    }
+
     private String menuToString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (Product product : products) {
+            sb.append(product.getId()).append(". ").append(product.getName()).append(" ")
+                    .append(product.getPrice()).append(" руб.").append("\n");
+        }
+        return sb.toString();
     }
 }

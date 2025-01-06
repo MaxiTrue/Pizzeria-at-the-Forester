@@ -1,3 +1,5 @@
+import entity.Pizzeria;
+
 public class
 ForestersPizzeriaApplication {
     public static void main(String[] args) {
@@ -5,7 +7,8 @@ ForestersPizzeriaApplication {
     }
 
     private static void execute() {
-        var display = new MainDisplay();
+        Pizzeria pizzeria1 = new Pizzeria("Политехническая ул., 122");
+        var display = new MainDisplay(pizzeria1);
 
         display.executeDisplay();
     }
