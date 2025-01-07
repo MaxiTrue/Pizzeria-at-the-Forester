@@ -1,6 +1,4 @@
-import entity.Pizzeria;
-import entity.Product;
-import entity.ProductCategory;
+package entity;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,7 +34,7 @@ public class MenuUpdater {
         String description = valueArr[1];
         ProductCategory category = ProductCategory.valueOf(valueArr[2]);
         BigDecimal price = new BigDecimal(valueArr[3]);
-        id += 1;
+        id++;
         return new Product(id, name, description, category, price);
     }
 }

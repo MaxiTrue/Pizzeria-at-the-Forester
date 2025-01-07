@@ -8,7 +8,7 @@ public class OrderStorage {
     private final List<Order> orders;
 
     public OrderStorage() {
-        this.orders = new ArrayList<Order>();
+        this.orders = new ArrayList<>();
     }
 
     public void addOrder(Order order) {
@@ -16,16 +16,16 @@ public class OrderStorage {
     }
 
     public List<Order> getOrders() {
-        return orders;
+        return new ArrayList<>(orders);
     }
 
     public Order getOrder(UUID id) {
-        for (Order order : orders) {
-            if (order.getId().equals(id)) {
-                return order;
-            }
-        }
-        System.out.println("Заказ не найден");
-        return null;
+        return orders.stream()
+                .filter(entity -> entity.getId().equals(id))
+                .findFirst()
+                .orElseGet(() -> {
+                    System.out.println("Заказ не найден");
+                    return null;
+                });
     }
 }

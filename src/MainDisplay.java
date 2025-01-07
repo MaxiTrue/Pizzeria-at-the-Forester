@@ -1,6 +1,5 @@
 import entity.Pizzeria;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class MainDisplay {
@@ -11,17 +10,12 @@ public class MainDisplay {
     public MainDisplay(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
         this.adminDisplay = new AdminDisplay(pizzeria);
-        try {
-            MenuUpdater.updateMenu(pizzeria, "menu.csv");
-        } catch (IOException e) {
-            System.out.println("Не удалось выполнить первоначальную загрузку меню");
-        }
     }
 
     public void executeDisplay() {
         System.out.println("Добро пожаловать в пиццерию по адресу: " + pizzeria.getAddress());
         while (true) {
-            printMenu();
+            printCommandList();
             var menuNumber = scanner.nextInt();
             switch (menuNumber) {
                 case 0:
@@ -42,7 +36,7 @@ public class MainDisplay {
         }
     }
 
-    private void printMenu() {
+    private void printCommandList() {
         System.out.println("""
                 0. Покинуть заведение
                 1. Меню

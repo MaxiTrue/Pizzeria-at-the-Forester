@@ -7,7 +7,7 @@ ForestersPizzeriaApplication {
     }
 
     private static void execute() {
-        Pizzeria pizzeria1 = new Pizzeria("Политехническая ул., 122");
+        Pizzeria pizzeria1 = new Pizzeria("Политехническая ул., 122", "save.csv");
         var display = new MainDisplay(pizzeria1);
 
         display.executeDisplay();

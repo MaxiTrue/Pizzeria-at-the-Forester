@@ -1,3 +1,4 @@
+import entity.MenuUpdater;
 import entity.Order;
 import entity.OrderStatus;
 import entity.Pizzeria;
@@ -17,17 +18,21 @@ public class AdminDisplay {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            printMenu();
+            printCommandList();
             var menuNumber = scanner.nextInt();
             switch (menuNumber) {
                 case 0:
                     System.out.println("Выходим из админ меню....");
                     return;
                 case 1:
-                    updateMenu(pizzeria);
+                    updateMenuCommand(pizzeria);
                     break;
                 case 2:
-                    updateStatus(pizzeria);
+                    try {
+                        updateStatus(pizzeria);
+                    } catch (Exception e) {
+                        System.out.println("Сбой обновления статуса заказа: " + e.getMessage());
+                    }
                     break;
                 default:
                     System.out.println("Нет такой команды!");
@@ -35,7 +40,7 @@ public class AdminDisplay {
         }
     }
 
-    private void printMenu() {
+    private void printCommandList() {
         System.out.println("""
                 0. Выйти из меню
                 1. Обновить меню из csv файла
@@ -43,7 +48,7 @@ public class AdminDisplay {
                 """);
     }
 
-    private void updateMenu(Pizzeria pizzeria) {
+    private void updateMenuCommand(Pizzeria pizzeria) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Текущее меню: " + pizzeria.getMenuStorage().getDescription());
         System.out.println("""
