@@ -1,4 +1,6 @@
-package entity;
+package storage;
+
+import entity.Order;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-import entity.MenuUpdater;
+package api;
+
+import util.MenuLoader;
 import entity.Order;
 import entity.OrderStatus;
 import entity.Pizzeria;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -60,13 +61,9 @@ public class AdminDisplay {
         var menuNumber = scanner.nextInt();
         switch (menuNumber) {
             case 1:
-                try {
-                    MenuUpdater.updateMenu(pizzeria, "menu.csv");
+                    MenuLoader.loadMenu("menu.csv");
+                    //MenuLoader.updateMenu(pizzeria, "menu.csv");
                     System.out.println("Теперь меню выглядит так\n" + pizzeria.getMenuStorage().getDescription());
-                } catch (IOException e) {
-                    System.out.println("Произошла ошибка:" + e.getMessage());
-                    System.out.println("Меню не было обновлено");
-                }
                 break;
             case 2:
                 System.out.println("Меню не было обновлено");

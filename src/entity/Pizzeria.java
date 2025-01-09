@@ -1,6 +1,8 @@
 package entity;
 
-import java.io.IOException;
+import storage.MenuStorage;
+import storage.OrderStorage;
+
 import java.util.UUID;
 
 public class Pizzeria {
@@ -12,12 +14,7 @@ public class Pizzeria {
     public Pizzeria(String address, String menuFilePath) {
         this.id = generateUUID();
         this.address = address;
-        this.menuStorage = MenuStorage.createEmptyMenuStorage();
-        try {
-            MenuUpdater.updateMenu(this, menuFilePath);
-        } catch (IOException e) {
-            System.out.println("Не удалось выполнить первоначальную загрузку меню");
-        }
+        this.menuStorage = MenuStorage.createMenuStorage(menuFilePath);
         this.orderStorage = new OrderStorage();
     }
 

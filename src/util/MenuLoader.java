@@ -1,19 +1,24 @@
-package entity;
+package util;
+
+import entity.Product;
+import entity.ProductCategory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
-public class MenuUpdater {
+public class MenuLoader {
     private static final String SEP = ",";
     private static int id = 0;
 
-    public static void updateMenu(Pizzeria pizzeria, String filePath) throws IOException {
-        List<Product> products = new ArrayList<>();
+    public static List<Product> loadMenu(String filePath) {
+        var products = new ArrayList<Product>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Пропуск 1 строки с названиями столбцов
             while (br.ready()) {
@@ -21,11 +26,15 @@ public class MenuUpdater {
                 Product product = fromString(line);
                 products.add(product);
             }
-            pizzeria.getMenuStorage().setProducts(products);
             id = 0;
+
+            return products;
         } catch (IOException e) {
-            throw new IOException("Ошибка чтения/записи файла");
+            // типо логируем
+            System.out.printf("ERROR: При загрузки файла из пути - %s, произошла ошибка - %s%n", filePath, e.getMessage());
         }
+
+        return Collections.emptyList();
     }
 
     private static Product fromString(String value) {

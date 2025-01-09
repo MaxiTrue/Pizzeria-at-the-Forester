@@ -1,3 +1,4 @@
+import api.MainDisplay;
 import entity.Pizzeria;
 
 public class
@@ -7,7 +8,7 @@ ForestersPizzeriaApplication {
     }
 
     private static void execute() {
-        Pizzeria pizzeria1 = new Pizzeria("Политехническая ул., 122", "save.csv");
+        Pizzeria pizzeria1 = new Pizzeria("Политехническая ул., 122", "menu.csv");
         var display = new MainDisplay(pizzeria1);
 
         display.executeDisplay();
