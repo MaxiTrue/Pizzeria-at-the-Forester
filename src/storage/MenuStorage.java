@@ -35,11 +35,11 @@ public class MenuStorage {
     private String menuToString() {
         StringBuilder sb = new StringBuilder();
         for (Product product : products) {
-            sb.append(product.getId())
+            sb.append(product.id())
                     .append(". ")
-                    .append(product.getName())
+                    .append(product.name())
                     .append(" ")
-                    .append(product.getPrice())
+                    .append(product.price())
                     .append(" руб.\n");
         }
         return sb.toString();

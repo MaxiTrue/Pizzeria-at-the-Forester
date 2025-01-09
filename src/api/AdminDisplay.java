@@ -11,13 +11,13 @@ import java.util.UUID;
 public class AdminDisplay {
     private final Pizzeria pizzeria;
 
+    Scanner scanner = new Scanner(System.in);
+
     public AdminDisplay(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
     }
 
     public void executeDisplay() {
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             printCommandList();
             var menuNumber = scanner.nextInt();
@@ -50,7 +50,6 @@ public class AdminDisplay {
     }
 
     private void updateMenuCommand(Pizzeria pizzeria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Текущее меню: " + pizzeria.getMenuStorage().getDescription());
         System.out.println("""
                 Желаете обновить его?
@@ -74,17 +73,20 @@ public class AdminDisplay {
     }
 
     private void updateStatus(Pizzeria pizzeria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Введите id заказа");
+
         UUID id = UUID.fromString(scanner.next());
         Order order = pizzeria.getOrderStorage().getOrder(id);
+
         if (order != null) {
             System.out.println("Заказ на имя: " + order.getCustomer().name() + " Статус: " + order.getStatus());
             System.out.println("На какой статус поменять? Введите один из следующих");
+
             for (OrderStatus status : OrderStatus.values()) {
                 System.out.println(status);
             }
             order.setStatus(OrderStatus.valueOf(scanner.next()));
+
             System.out.println("Статус обновлен");
         }
         System.out.println("Статус не обновлен");

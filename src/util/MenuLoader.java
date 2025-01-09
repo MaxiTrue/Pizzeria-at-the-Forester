@@ -44,6 +44,7 @@ public class MenuLoader {
         ProductCategory category = ProductCategory.valueOf(valueArr[2]);
         BigDecimal price = new BigDecimal(valueArr[3]);
         id++;
+
         return new Product(id, name, description, category, price);
     }
 }
