@@ -34,6 +34,10 @@ public class Pizzeria {
         return orderStorage;
     }
 
+    public void addOrder(Order order) {
+        orderStorage.addOrder(order);
+    }
+
     private UUID generateUUID() {
         return UUID.randomUUID();
     }

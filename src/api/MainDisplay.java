@@ -8,10 +8,12 @@ public class MainDisplay {
     private final Pizzeria pizzeria;
     private final Scanner scanner = new Scanner(System.in);
     private final AdminDisplay adminDisplay;
+    private final OrderDisplay orderDisplay;
 
     public MainDisplay(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
         this.adminDisplay = new AdminDisplay(pizzeria);
+        this.orderDisplay = new OrderDisplay(pizzeria);
     }
 
     public void executeDisplay() {
@@ -26,6 +28,7 @@ public class MainDisplay {
                 case 1:
                     break;
                 case 2:
+                    orderDisplay.executeDisplay();
                     break;
                 case 3:
                     break;

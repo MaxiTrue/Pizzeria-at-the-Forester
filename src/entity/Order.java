@@ -42,6 +42,18 @@ public class Order {
         return products;
     }
 
+    public void addProduct(Product product) {
+        this.products.add(product);
+    }
+
+    public void removeProduct(int index) {
+        this.products.remove(index);
+    }
+
+    public void removeAllProducts() {
+        this.products.clear();
+    }
+
     private UUID generateUUID() {
         return UUID.randomUUID();
     }
