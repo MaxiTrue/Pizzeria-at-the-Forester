@@ -3,45 +3,51 @@ package service;
 import entity.Customer;
 import entity.Order;
 import entity.OrderStatus;
-import entity.Pizzeria;
+import entity.Product;
+import storage.OrderStorage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class OrderService {
-
     private Order currentOrder;
     private Customer currentCustomer;
-    private final Pizzeria pizzeria;
+
+    private final OrderStorage orderStorage;
+
     private long orderNumber;
-    private final Scanner scanner = new Scanner(System.in);
 
-    public OrderService(Pizzeria pizzeria) {
-        this.pizzeria = pizzeria;
+    public OrderService() {
+        orderStorage = new OrderStorage();
     }
 
-    public void createCustomer() {
-        System.out.println("Введите имя: ");
-        currentCustomer = new Customer(scanner.nextLine());
+    public Order getOrderById(UUID id) {
+        return orderStorage.getOrder(id);
     }
 
-    public void addToOrder(int index) {
+    public void createCustomer(String name) {
+        currentCustomer = new Customer(name);
+    }
+
+    public void addToOrder(Product product) {
         if (currentOrder == null) {
-            currentOrder = new Order(orderNumber++,
+            currentOrder = new Order(
+                    orderNumber++,
                     OrderStatus.NEW,
                     currentCustomer,
                     new ArrayList<>());
         }
-        var product = pizzeria.getMenuStorage().getProductById(index);
+
         currentOrder.addProduct(product);
+    }
+
+    public void removeFromOrder(Product product) {
+        currentOrder.removeProduct(product);
     }
 
     public void printOrder() {
         System.out.println(currentOrder.getProducts());
-    }
-
-    public void removeFromOrder(int index) {
-        currentOrder.removeProduct(--index);
     }
 
     public void cleanOrder() {
@@ -50,7 +56,8 @@ public class OrderService {
     }
 
     public void sendOrder() {
-        pizzeria.addOrder(currentOrder);
+        //pizzeria.addOrder(currentOrder);
+        currentOrder.setStatus(OrderStatus.IN_PROGRESS);
         System.out.println("Заказ успешно оформлен!");
     }
 

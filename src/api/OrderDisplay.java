@@ -1,20 +1,20 @@
 package api;
 
 import entity.Pizzeria;
-import service.OrderService;
 
 import java.util.Scanner;
 
 public class OrderDisplay {
-    private final OrderService orderService;
     private final Scanner scanner = new Scanner(System.in);
+    private final Pizzeria pizzeria;
 
     public OrderDisplay(Pizzeria pizzeria) {
-        this.orderService = new OrderService(pizzeria);
+        this.pizzeria = pizzeria;
     }
 
     public void executeDisplay() {
-        orderService.createCustomer();
+        System.out.println("Введите имя: ");
+        pizzeria.createCustomerFromOrder(scanner.nextLine());
         while (true) {
             printCommandList();
             var menuNumber = scanner.nextInt();
@@ -23,24 +23,24 @@ public class OrderDisplay {
                     return;
                 case 1:
                     System.out.println("Введите id продукта: ");
-                    orderService.addToOrder(scanner.nextInt());
-                    orderService.printOrder();
+                    pizzeria.addProductToOrder(scanner.nextInt());
+                    pizzeria.printOrder();
                     break;
                 case 2:
-                    if(orderService.checkOrderStatus()) {
-                        orderService.printOrder();
+                    if (pizzeria.isOrderExists()) {
+                        pizzeria.printOrder();
                         System.out.println("Выберите позицию, которую нужно убрать: ");
-                        orderService.removeFromOrder(scanner.nextInt());
+                        pizzeria.removeFromOrder(scanner.nextInt());
                     }
                     break;
                 case 3:
-                    if (orderService.checkOrderStatus()) {
-                        orderService.cleanOrder();
+                    if (pizzeria.isOrderExists()) {
+                        pizzeria.cleanOrder();
                     }
                     break;
                 case 4:
-                    if (orderService.checkOrderStatus()) {
-                        orderService.sendOrder();
+                    if (pizzeria.isOrderExists()) {
+                        pizzeria.sendOrder();
                     }
                     break;
                 default:
