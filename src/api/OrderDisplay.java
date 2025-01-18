@@ -22,6 +22,7 @@ public class OrderDisplay {
                 case 0:
                     return;
                 case 1:
+                    System.out.println(pizzeria.getMenu());
                     System.out.println("Введите id продукта: ");
                     pizzeria.addProductToOrder(scanner.nextInt());
                     pizzeria.printOrder();
@@ -29,7 +30,7 @@ public class OrderDisplay {
                 case 2:
                     if (pizzeria.isOrderExists()) {
                         pizzeria.printOrder();
-                        System.out.println("Выберите позицию, которую нужно убрать: ");
+                        System.out.println("Введите id продукта, который желаете убрать: ");
                         pizzeria.removeFromOrder(scanner.nextInt());
                     }
                     break;
@@ -41,6 +42,7 @@ public class OrderDisplay {
                 case 4:
                     if (pizzeria.isOrderExists()) {
                         pizzeria.sendOrder();
+                        return;
                     }
                     break;
                 default:

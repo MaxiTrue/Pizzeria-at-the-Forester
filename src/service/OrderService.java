@@ -7,7 +7,6 @@ import entity.Product;
 import storage.OrderStorage;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class OrderService {
@@ -57,12 +56,13 @@ public class OrderService {
 
     public void sendOrder() {
         //pizzeria.addOrder(currentOrder);
+        orderStorage.addOrder(currentOrder);
         currentOrder.setStatus(OrderStatus.IN_PROGRESS);
         System.out.println("Заказ успешно оформлен!");
     }
 
     public boolean checkOrderStatus() {
-        if (currentOrder == null) {
+        if (currentOrder == null || currentOrder.getProducts().isEmpty()) {
             System.out.println("Вы не создали заказ");
             return false;
         } else {

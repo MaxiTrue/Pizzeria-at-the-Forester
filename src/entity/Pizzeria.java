@@ -51,7 +51,13 @@ public class Pizzeria {
     }
 
     public void removeFromOrder(int productId) {
-        orderService.removeFromOrder(menuService.getProductById(productId));
+        var product = menuService.getProductById(productId);
+
+        if (product != null) {
+            orderService.removeFromOrder(product);
+        } else {
+            System.out.printf("Продукт с id - %d не существует или не доступен\n", productId);
+        }
     }
 
     public void sendOrder() {
