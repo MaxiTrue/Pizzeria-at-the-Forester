@@ -3,45 +3,39 @@ package storage;
 import entity.Product;
 import util.MenuLoader;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class MenuStorage {
-    private List<Product> products;
-    private String description;
+    private Map<Integer, Product> products;
 
-    private MenuStorage(List<Product> products) {
-        this.products = products;
-        this.description = menuToString();
+    public MenuStorage(List<Product> products) {
+        saveToMap(products);
+        //this.description = menuToString();
     }
 
     public List<Product> getProducts() {
-        return products;
+        return new ArrayList<>(products.values());
     }
 
     public void setProducts(List<Product> products) {
-        this.products = products;
-        this.description = menuToString();
-    }
-
-    public String getDescription() {
-        return description;
+        saveToMap(products);
     }
 
     public static MenuStorage createMenuStorage(String menuFilePath) {
         return new MenuStorage(MenuLoader.loadMenu(menuFilePath));
     }
 
-    private String menuToString() {
-        StringBuilder sb = new StringBuilder();
-        for (Product product : products) {
-            sb.append(product.id())
-                    .append(". ")
-                    .append(product.name())
-                    .append(" ")
-                    .append(product.price())
-                    .append(" руб.\n");
-        }
-        return sb.toString();
+    public Product getProductById(int id) {
+        return products.get(id);
+    }
+
+    private void saveToMap(List<Product> products) {
+        this.products = products
+                .stream()
+                .collect(Collectors.toMap(Product::id, product -> product));
     }
 }

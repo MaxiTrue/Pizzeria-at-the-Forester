@@ -5,27 +5,33 @@ import entity.Pizzeria;
 import java.util.Scanner;
 
 public class MainDisplay {
-    private final Pizzeria pizzeria;
+
     private final Scanner scanner = new Scanner(System.in);
+    private final Pizzeria pizzeria;
     private final AdminDisplay adminDisplay;
+    private final OrderDisplay orderDisplay;
 
     public MainDisplay(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
         this.adminDisplay = new AdminDisplay(pizzeria);
+        this.orderDisplay = new OrderDisplay(pizzeria);
     }
 
     public void executeDisplay() {
         System.out.println("Добро пожаловать в пиццерию по адресу: " + pizzeria.getAddress());
         while (true) {
             printCommandList();
+
             var menuNumber = scanner.nextInt();
             switch (menuNumber) {
                 case 0:
                     System.out.println("Ждём вас снова");
                     System.exit(0);
                 case 1:
+                    System.out.println(pizzeria.getMenu());
                     break;
                 case 2:
+                    orderDisplay.executeDisplay();
                     break;
                 case 3:
                     break;

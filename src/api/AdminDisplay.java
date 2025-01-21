@@ -1,6 +1,5 @@
 package api;
 
-import util.MenuLoader;
 import entity.Order;
 import entity.OrderStatus;
 import entity.Pizzeria;
@@ -9,9 +8,8 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class AdminDisplay {
+    private final Scanner scanner = new Scanner(System.in);
     private final Pizzeria pizzeria;
-
-    Scanner scanner = new Scanner(System.in);
 
     public AdminDisplay(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
@@ -26,11 +24,11 @@ public class AdminDisplay {
                     System.out.println("Выходим из админ меню....");
                     return;
                 case 1:
-                    updateMenuCommand(pizzeria);
+                    updateMenuCommand();
                     break;
                 case 2:
                     try {
-                        updateStatus(pizzeria);
+                        updateStatus();
                     } catch (Exception e) {
                         System.out.println("Сбой обновления статуса заказа: " + e.getMessage());
                     }
@@ -49,8 +47,8 @@ public class AdminDisplay {
                 """);
     }
 
-    private void updateMenuCommand(Pizzeria pizzeria) {
-        System.out.println("Текущее меню: " + pizzeria.getMenuStorage().getDescription());
+    private void updateMenuCommand() {
+        System.out.println("Текущее меню: " + pizzeria.getMenu());
         System.out.println("""
                 Желаете обновить его?
                 1. Да, обновить из файла menu.csv
@@ -60,9 +58,8 @@ public class AdminDisplay {
         var menuNumber = scanner.nextInt();
         switch (menuNumber) {
             case 1:
-                    MenuLoader.loadMenu("menu.csv");
-                    //MenuLoader.updateMenu(pizzeria, "menu.csv");
-                    System.out.println("Теперь меню выглядит так\n" + pizzeria.getMenuStorage().getDescription());
+                pizzeria.reloadMenu();
+                System.out.println("Теперь меню выглядит так\n" + pizzeria.getMenu());
                 break;
             case 2:
                 System.out.println("Меню не было обновлено");
@@ -72,11 +69,11 @@ public class AdminDisplay {
         }
     }
 
-    private void updateStatus(Pizzeria pizzeria) {
+    private void updateStatus() {
         System.out.println("Введите id заказа");
 
         UUID id = UUID.fromString(scanner.next());
-        Order order = pizzeria.getOrderStorage().getOrder(id);
+        Order order = pizzeria.getOrderById(id);
 
         if (order != null) {
             System.out.println("Заказ на имя: " + order.getCustomer().name() + " Статус: " + order.getStatus());
