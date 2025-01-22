@@ -1,5 +1,7 @@
 package api;
 
+import entity.Order;
+import entity.OrderStatus;
 import entity.Pizzeria;
 
 import java.util.Scanner;
@@ -22,7 +24,7 @@ public class MainDisplay {
         while (true) {
             printCommandList();
 
-            var menuNumber = scanner.nextInt();
+            var menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
                 case 0:
                     System.out.println("Ждём вас снова");
@@ -34,6 +36,22 @@ public class MainDisplay {
                     orderDisplay.executeDisplay();
                     break;
                 case 3:
+                    if (pizzeria.getOrders().isEmpty()) {
+                        System.out.println("    Ожидаем ваши заказы");
+                        break;
+                    }
+                    System.out.printf("%-3s | %-15s | %s %n",
+                            "№",
+                            "Имя",
+                            "Статус");
+                    for (Order order : pizzeria.getOrders()) {
+                        if (order.getStatus() == OrderStatus.CANCELED || order.getStatus() == OrderStatus.ISSUED)
+                            continue;
+                        System.out.printf("%-3d | %-15s | %s %n",
+                                order.getNumber(),
+                                order.getCustomer().name(),
+                                order.getStatus());
+                    }
                     break;
                 case 4:
                     adminDisplay.executeDisplay();

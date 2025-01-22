@@ -13,25 +13,25 @@ public class OrderDisplay {
     }
 
     public void executeDisplay() {
-        System.out.println("Введите имя: ");
+        System.out.print("Введите имя: \n");
         pizzeria.createCustomerFromOrder(scanner.nextLine());
         while (true) {
             printCommandList();
-            var menuNumber = scanner.nextInt();
+            var menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
                 case 0:
                     return;
                 case 1:
                     System.out.println(pizzeria.getMenu());
                     System.out.println("Введите id продукта: ");
-                    pizzeria.addProductToOrder(scanner.nextInt());
+                    pizzeria.addProductToOrder(Integer.parseInt(scanner.nextLine()));
                     pizzeria.printOrder();
                     break;
                 case 2:
                     if (pizzeria.isOrderExists()) {
                         pizzeria.printOrder();
                         System.out.println("Введите id продукта, который желаете убрать: ");
-                        pizzeria.removeFromOrder(scanner.nextInt());
+                        pizzeria.removeFromOrder(Integer.parseInt(scanner.nextLine()));
                     }
                     break;
                 case 3:

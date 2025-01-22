@@ -18,7 +18,7 @@ public class AdminDisplay {
     public void executeDisplay() {
         while (true) {
             printCommandList();
-            var menuNumber = scanner.nextInt();
+            var menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
                 case 0:
                     System.out.println("Выходим из админ меню....");
@@ -33,6 +33,11 @@ public class AdminDisplay {
                         System.out.println("Сбой обновления статуса заказа: " + e.getMessage());
                     }
                     break;
+                    case 3:
+                        for (Order order : pizzeria.getOrders()) {
+                            System.out.println(order);
+                        }
+                        break;
                 default:
                     System.out.println("Нет такой команды!");
             }
@@ -44,6 +49,7 @@ public class AdminDisplay {
                 0. Выйти из меню
                 1. Обновить меню из csv файла
                 2. Изменить статус заказа по ID
+                3. Показать все заказы с ID
                 """);
     }
 
@@ -55,7 +61,7 @@ public class AdminDisplay {
                 2. Нет, оставить как есть
                 """);
 
-        var menuNumber = scanner.nextInt();
+        var menuNumber = Integer.valueOf(scanner.nextLine());
         switch (menuNumber) {
             case 1:
                 pizzeria.reloadMenu();
@@ -72,7 +78,7 @@ public class AdminDisplay {
     private void updateStatus() {
         System.out.println("Введите id заказа");
 
-        UUID id = UUID.fromString(scanner.next());
+        UUID id = UUID.fromString(scanner.nextLine());
         Order order = pizzeria.getOrderById(id);
 
         if (order != null) {
@@ -82,9 +88,9 @@ public class AdminDisplay {
             for (OrderStatus status : OrderStatus.values()) {
                 System.out.println(status);
             }
-            order.setStatus(OrderStatus.valueOf(scanner.next()));
-
+            order.setStatus(OrderStatus.valueOf(scanner.nextLine()));
             System.out.println("Статус обновлен");
+            return;
         }
         System.out.println("Статус не обновлен");
     }

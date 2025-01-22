@@ -7,6 +7,7 @@ import entity.Product;
 import storage.OrderStorage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class OrderService {
@@ -27,6 +28,10 @@ public class OrderService {
 
     public void createCustomer(String name) {
         currentCustomer = new Customer(name);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderStorage.getOrders();
     }
 
     public void addToOrder(Product product) {
@@ -59,6 +64,7 @@ public class OrderService {
         orderStorage.addOrder(currentOrder);
         currentOrder.setStatus(OrderStatus.IN_PROGRESS);
         System.out.println("Заказ успешно оформлен!");
+        currentOrder = null; // очищаем ссылку, чтобы можно было создать новый заказ
     }
 
     public boolean checkOrderStatus() {
