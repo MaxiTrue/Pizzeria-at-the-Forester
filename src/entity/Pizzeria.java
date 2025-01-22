@@ -3,6 +3,7 @@ package entity;
 import service.MenuService;
 import service.OrderService;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Pizzeria {
@@ -19,6 +20,10 @@ public class Pizzeria {
 
     public String getAddress() {
         return address;
+    }
+
+    public List<Order> getOrders() {
+        return orderService.getAllOrders();
     }
 
     // Методы для работы с сущностью Menu

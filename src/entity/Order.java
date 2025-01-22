@@ -57,4 +57,15 @@ public class Order {
     private UUID generateUUID() {
         return UUID.randomUUID();
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", number=" + number +
+                ", status=" + status +
+                ", customer=" + customer +
+                ", products=" + products +
+                "}\n";
+    }
 }
